@@ -104,6 +104,35 @@ void bezierCurve(mat controlPoints, mat matrix){
 glEnd();  
 
 }
+void catMulRom(mat controlPoints, float s =1/2){
+  mat fCatmul = {{-s , 2-s , s-2, s  },
+              {2*s , s-3 , 3-2*s, -s },
+              {-s , 0. , s, 0.  },
+              { 0. , 1, 0.,  0. }};
+  
+  vec var;
+  int size = controlPoints.n_rows;
+  glBegin(GL_LINE_STRIP);
+  for(float i=0;i<=1;i=i+0.05)
+  {
+    vec tamp = createVar(size,i);
+    mat buffer =  fCatmul * controlPoints ;
+    mat buff = trans(tamp)  * buffer;
+    glVertex3f(buff[0],buff[1],buff[2]);
+  }
+  glEnd();
+
+  glPointSize(5.0f);
+  glBegin(GL_POINTS);
+  for (int i = 0; i < size; i++)
+  {
+    
+    glColor3f(0.3, 0.3, 0.3);
+    glVertex3f(controlPoints(i,0), controlPoints(i,1), controlPoints(i,2));
+  }
+glEnd();  
+
+}
 
 void displayCourbe(void)
 {
@@ -126,8 +155,10 @@ void displayCourbe(void)
             {3 , -6 , 3, 0  },
             {-3 , 3 , 0, 0  },
            { 1 , 0, 0,  0 }};
+ 
   
-  bezierCurve(controlPointsQuad,fQuad);
+  // bezierCurve(controlPointsQuad,fQuad);
+  catMulRom(controlPointsCube);
   
   
 
