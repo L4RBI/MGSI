@@ -157,8 +157,8 @@ void displayCourbe(void)
            { 1 , 0, 0,  0 }};
  
   
-  // bezierCurve(controlPointsQuad,fQuad);
-  catMulRom(controlPointsCube);
+  bezierCurve(controlPointsCube,fCube);
+  //catMulRom(controlPointsCube);
   
   
 
